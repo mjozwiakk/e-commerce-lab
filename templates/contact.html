@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Contact Page</h1>
+    <h3>{{ title|capfirst|title }}</h3>
+<p>
+{{ my_number }}
+</p>
+<p>
+{{ my_html|safe }}
+</p>
+
+<ul>
+{% for abc in my_list %}
+    {% if abc == 312 %}
+        <li>{{forloop.counter}} - {{abc|add:20}}</li>
+    {% elif abc == "abc" %}
+        <li>This is not the network</li>
+    {% else %}
+        <li>{{forloop.counter}} - {{abc}}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+
+
+{% endblock %}
