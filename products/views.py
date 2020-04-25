@@ -1,52 +1,33 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Product
 from .forms import ProductForm, RawProductForm
 
 # Create your views here.
 
-#correct form
-def product_create_view(request):
 
-    form = RawProductForm()
-    if request.method == "POST":
-        form = RawProductForm(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data) 
-            Product.objects.create(**form.cleaned_data)
-        else:
-            print(form.errors)
+def product_create_view(request):
+    form = ProductForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        form = ProductForm()
 
     context = {
-        "my_form": form,
+        'my_form': form
     }
-    return render(request, "products/product_create.html", context)
+    return render(request, "products/product-create.html", context)
 
 
-
-# def product_create_view(request):
-
-#     if request.method == "POST":
-#         my_new_title = request.POST.get('title')
-#         print(my_new_title)
-#         #Product.objects.create(title=my_new_title)
-#     context = {}
-#     return render(request, "products/product_create.html", context)
-
-# def product_create_view(request):
-#     form = ProductForm(request.POST or None)
-#     if form.is_valid():
-#         form.save()
-#         form = ProductForm()
-
-#     context = {
-#         'form': form
-#     }
-#     return render(request, "products/product_create.html", context)
-
-
-def product_detail_view(request):
-    obj = Product.objects.get(id=7)
+def dynamic_lookup_view(request, id):
+    obj = get_object_or_404(Product, id=id)
     context = {
         'object': obj,
     }
-    return render(request, "products/product_detail.html", context)
+    return render(request, "products/product-detail.html", context)
+
+
+def product_list_view(request):
+    queryset = Product.objects.all()
+    context = {
+        "object_list": queryset
+    }
+    return render(request, "products/product-list.html", context)
