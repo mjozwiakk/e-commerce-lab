@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Product
-from .forms import ProductForm, RawProductForm
+from .forms import ProductForm
 
 # Create your views here.
 
