@@ -27,6 +27,7 @@ urlpatterns = [
     path('contact/', contact_view, name='contact'),
     path('admin/', admin.site.urls, name='admin'),
     path('products/', include('products.urls')),
+    path('account/', include('allauth.urls')),
 ] 
 
 urlpatterns += staticfiles_urlpatterns()

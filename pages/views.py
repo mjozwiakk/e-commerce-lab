@@ -1,9 +1,13 @@
 from django.shortcuts import render
-
+from products.models import Product
 # Create your views here.
 
 def home_view(request, *args, **kwargs):
-    return render(request, 'home.html', {})
+    queryset = Product.objects.all()[:8]
+    context = {
+        "new_products": queryset
+    }
+    return render(request, 'home.html', context)
     
 def contact_view(request, *args, **kwargs):
     my_context = {
