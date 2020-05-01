@@ -16,17 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls import url
-from pages.views import home_view, contact_view
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
+
+from pages.views import home_view, contact_view, cart_view
 
 urlpatterns = [
     path('', home_view, name='home'),
     path('contact/', contact_view, name='contact'),
     path('admin/', admin.site.urls, name='admin'),
     path('products/', include('products.urls')),
+    path('cart/', cart_view, name='cart'),
     path('account/', include('allauth.urls')),
 ] 
 

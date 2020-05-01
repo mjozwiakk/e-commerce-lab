@@ -11,7 +11,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <link rel="shortcut icon" href="{% static "/img/logo.svg" %}" />
 
@@ -50,8 +50,8 @@
         <ul class="navbar-nav nav-flex-icons ml-auto">
           {% if request.user.is_authenticated %}
           <li class="nav-item">
-            <a href="#" class="nav-link waves-effect">
-              <i class="fas fa-shopping-cart"></i>
+            <a href="{% url 'cart' %}" class="nav-link waves-effect">
+              <i class= "fas fa-shopping-cart"> </i>
               <span class="clearfix d-none d-sm-inline-block"> Koszyk </span>
             </a>
           </li>
@@ -78,6 +78,22 @@
     </div>
   </nav>
 
+
+
+  <div class="container mt-2">
+    {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
 
   <div class="container mt-5 mb-5">
     {% block content %}

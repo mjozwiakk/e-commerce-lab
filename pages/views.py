@@ -1,5 +1,7 @@
-from django.shortcuts import render
-from products.models import Product
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
+from products.models import Product, Order
 # Create your views here.
 
 def home_view(request, *args, **kwargs):
@@ -11,11 +13,21 @@ def home_view(request, *args, **kwargs):
     
 def contact_view(request, *args, **kwargs):
     my_context = {
-        "title": "contact page text",
-        "this_is_true": True,
-        "my_number": 123,
-        "my_list": [123, 312, 1221, 123, "abc"],
-        "my_html": "<h1>Hello World!</h1>",
     }
     return render(request, 'contact.html', my_context)
+    
+
+def cart_view(request, *args, **kwargs):
+    if Order.objects.filter(user=request.user, ordered=False).exists():
+        order = Order.objects.get(user=request.user, ordered=False)
+        context = {
+            'order': order,
+        }
+        return render(request, 'cart.html', context)
+    else:
+        order = Order.objects.create(user=request.user, ordered=False)
+        context = {
+            'order': order,
+        }
+        return render(request, 'cart.html', context)
     

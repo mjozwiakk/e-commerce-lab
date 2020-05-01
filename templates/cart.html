@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="text-center mb-5">Koszyk</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th class="text-center" scope="col">Nr.:</th>
+      <th scope="col">Produkt:</th>
+      <th class="text-center" scope="col">Cena:</th>
+      <th class="text-center" scope="col">Ilość:</th>
+      <th class="text-center" scope="col">Kwota:</th>
+      <th class="text-center" scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in order.products.all %}
+    <tr>
+      <td class="text-center">{{ forloop.counter }} </td>
+      <td ><a href="{{product.product.get_absolute_url}}" >{{ product.product.title }} - {{ product.product.short_description }}</a></td>
+      <td class="text-center">{{ product.product.price }}</td>
+      <td class="text-center">
+        <a href="{{ product.product.get_remove_single_from_cart_url }}" type="button" class="btn btn-light">-</a>
+        <span class="pl-1 pr-1">{{ product.quantity }}</span>
+        <a href="{{ product.product.get_add_to_cart_url }}" class="btn btn-light">+</a>
+      </td>
+      <td class="text-center">{{ product.get_total_item_price }} </td>
+      <td class="text-center"><a href="{{ product.product.get_remove_from_cart_url }}" type="button" class="btn btn-danger"><i class="fas fa-trash float-right"></i></a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+<div class="offset-md-8 col-4">
+<a href="#" type="button" class="btn btn-md btn-block btn-info mt-5 pt-2 pb-2">KUPUJĘ</a>
+</div>
+
+{% endblock %}
