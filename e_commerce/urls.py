@@ -21,7 +21,12 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 
-from pages.views import home_view, contact_view, cart_view
+from pages.views import (
+    home_view, 
+    contact_view, 
+    cart_view, 
+    checkout_view
+)
 
 urlpatterns = [
     path('', home_view, name='home'),
@@ -29,6 +34,7 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('products/', include('products.urls')),
     path('cart/', cart_view, name='cart'),
+    path('checkout/', checkout_view, name='checkout'),
     path('account/', include('allauth.urls')),
 ] 
 

@@ -2,21 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Product, OrderProduct, Order
-from .forms import ProductForm
 
 # Create your views here.
 
-
-def product_create_view(request):
-    form = ProductForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        form = ProductForm()
-
-    context = {
-        'my_form': form
-    }
-    return render(request, "products/product-create.html", context)
 
 def dynamic_lookup_view(request, slug):
     obj = get_object_or_404(Product, slug=slug)

@@ -1,6 +1,5 @@
 from django.urls import path
 from .views import (
-    product_create_view, 
     dynamic_lookup_view, 
     product_list_view, 
     product_list_view_filter, 
@@ -15,7 +14,6 @@ urlpatterns = [
     path('', product_list_view, name='product-list'),
     path('category/<str:category>/', product_list_view_filter, name='product-list-filter'),
     path('<slug:slug>/', dynamic_lookup_view, name='product-detail'),
-    path('create/', product_create_view, name='product-create'),
     path('add-to-cart/<slug>', add_to_cart, name='add-to-cart'),
     path('remove-from-cart/<slug>', remove_from_cart, name='remove-from-cart'),
     path('remove-single-from-cart/<slug>', remove_single_from_cart, name='remove-single-from-cart'),

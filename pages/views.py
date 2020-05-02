@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from products.models import Product, Order
+from .forms import CheckoutForm
 # Create your views here.
 
 def home_view(request, *args, **kwargs):
@@ -30,4 +31,14 @@ def cart_view(request, *args, **kwargs):
             'order': order,
         }
         return render(request, 'cart.html', context)
+    
+def checkout_view(request, *args, **kwargs):
+    order = Order.objects.get(user=request.user, ordered=False)
+    form = CheckoutForm()
+
+    context = {
+        'order': order,
+        'form': form,
+    }
+    return render(request, 'checkout.html', context)
     

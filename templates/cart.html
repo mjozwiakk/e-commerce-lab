@@ -18,22 +18,28 @@
     <tr>
       <td class="text-center">{{ forloop.counter }} </td>
       <td ><a href="{{product.product.get_absolute_url}}" >{{ product.product.title }} - {{ product.product.short_description }}</a></td>
-      <td class="text-center">{{ product.product.price }}</td>
+      <td class="text-center">{{ product.product.price }} zł</td>
       <td class="text-center">
         <a href="{{ product.product.get_remove_single_from_cart_url }}" type="button" class="btn btn-light">-</a>
         <span class="pl-1 pr-1">{{ product.quantity }}</span>
         <a href="{{ product.product.get_add_to_cart_url }}" class="btn btn-light">+</a>
       </td>
-      <td class="text-center">{{ product.get_total_item_price }} </td>
+      <td class="text-center">{{ product.get_total_item_price }} zł</td>
       <td class="text-center"><a href="{{ product.product.get_remove_from_cart_url }}" type="button" class="btn btn-danger"><i class="fas fa-trash float-right"></i></a></td>
     </tr>
     {% endfor %}
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="text-center">Suma:</td>
+      <td class="text-center">{{ order.get_product_sum_price }} zł</td>
+    </tr>
   </tbody>
 </table>
 
-
 <div class="offset-md-8 col-4">
-<a href="#" type="button" class="btn btn-md btn-block btn-info mt-5 pt-2 pb-2">KUPUJĘ</a>
+<a href="{% url 'checkout' %}" type="button" class="btn btn-md btn-block btn-info mt-5 pt-2 pb-2">Zamówienie</a>
 </div>
 
 {% endblock %}

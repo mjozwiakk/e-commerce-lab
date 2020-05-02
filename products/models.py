@@ -55,4 +55,16 @@ class Order(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def get_product_sum_price(self):
+        total = 0
+        for product in self.products.all():
+            total += product.get_total_item_price()
+        return total
+
+    def get_total_price(self):
+        total = 0
+        for product in self.products.all():
+            total += product.get_total_item_price()
+        return total + 15
     

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="text-center mb-5">Zamówienie</h1>
+
+<div class="row wow">
+<div class="col-6">
+    <h5>Dane do zamówienia:</h5>
+    <hr>
+    <form method='POST' >{% csrf_token %}
+        <div class="row">
+          <div class="col-12">
+            <label>Nazwa firmy (opcjonalnie)</label>
+            {{ form.company }}
+          </div>
+          <div class="col-6 mt-3">
+            <label>Imię*</label>
+            {{ form.first_name }}
+          </div>
+          <div class="col-6 mt-3">
+            <label>Nazwisko*</label>
+            {{ form.last_name }}
+          </div>
+          <div class="col-12 mt-3">
+          <label>Kraj*</label>
+          </div>
+          <div class="col-12">
+            {{ form.country }}
+          </div>
+          <div class="col-8 mt-3">
+            <label>Miasto*</label>
+            {{ form.city }}
+          </div>
+          <div class="col-4 mt-3">
+            <label>Kod pocztowy*</label>
+            {{ form.zip_code }}
+          </div>
+
+          <div class="col-12 mt-3">
+            <label>Adres*</label>
+            {{ form.address }}
+          </div>
+
+
+
+
+
+        </div>
+    
+</div>
+
+<div class="col-6">
+<h5>Twoje zamówienie:</h5>
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Produkt:</th>
+      <th class="text-center" scope="col">Ilość:</th>
+      <th class="text-center" scope="col">Kwota:</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in order.products.all %}
+    <tr>
+      <td>{{ product.product.title }} - {{ product.product.short_description }}</td>
+      <td class="text-center">{{ product.quantity }}</td>
+      <td class="text-center">{{ product.get_total_item_price }} zł</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td>Koszt wysyłki</td>
+      <td class="text-center"></td>
+      <td class="text-center">15 zł</td>
+    </tr>
+    <tr>
+
+      
+      <td><strong>Suma:</strong></td>
+      <td></td>
+      <td class="text-center"><strong>{{ order.get_total_price }} zł</strong></td>
+    </tr>
+  </tbody>
+</table>
+<h5>Metoda płatności:</h5>
+<div class="mt-4">{{ form.payment }}</div>
+
+</div>
+</div>
+
+
+<div class="offset-md-8 col-4">
+<button type="submit" class="btn btn-md btn-block btn-info mt-5 pt-2 pb-2">Kupuję i płacę</button>
+</form>
+</div>
+
+{% endblock %}
