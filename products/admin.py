@@ -8,6 +8,15 @@ class OrderAdmin(admin.ModelAdmin):
         'ordered',
         ]
 
-admin.site.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = [
+        'title',
+        'short_description',
+        'category',
+        'price',
+        ]
+
+
+admin.site.register(Product, ProductAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderProduct)
