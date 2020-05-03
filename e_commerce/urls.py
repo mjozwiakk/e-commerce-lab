@@ -25,7 +25,8 @@ from pages.views import (
     home_view, 
     contact_view, 
     cart_view, 
-    checkout_view
+    checkout_view,
+    order_summary_view,
 )
 
 urlpatterns = [
@@ -35,6 +36,7 @@ urlpatterns = [
     path('products/', include('products.urls')),
     path('cart/', cart_view, name='cart'),
     path('checkout/', checkout_view, name='checkout'),
+    path('order-summary/', order_summary_view, name='order-summary'),
     path('account/', include('allauth.urls')),
 ] 
 

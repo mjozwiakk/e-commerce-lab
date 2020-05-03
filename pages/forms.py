@@ -1,9 +1,8 @@
 from django import forms
-from django_countries.fields import CountryField
 
 PAYMENTS= (
     ('P', 'Przelew bankowy'),
-    ('F', 'Szybkie płatności - PayU')
+    ('O', 'Płatnośc przy odbiorze')
 )
 
 
@@ -14,5 +13,8 @@ class CheckoutForm(forms.Form):
     city = forms.CharField(required=True, max_length=100)
     zip_code = forms.CharField(required=True, max_length=6)
     address = forms.CharField(required=True, max_length=10)
-    country = CountryField(blank_label='(select country)').formfield(required=True)
     payment = forms.ChoiceField(required=True, widget=forms.RadioSelect, choices=PAYMENTS)
+
+
+class ConfirmOrderForm(forms.Form):
+    shop_rules = forms.BooleanField(required=True)

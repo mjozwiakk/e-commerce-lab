@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="text-center mb-5">Podsumowanie zamówienia</h1>
+<div class="row wow">
+<div class="col-6">
+  <h5>Twoje dane:</h5>
+  <ul>
+    <li><strong>Imię i nazwisko: </strong>{{order.first_name}} {{order.last_name}}</li>
+    <li><strong>Firma: </strong>{{order.company}}</li>
+    <li><strong>Adres: </strong>{{order.zip_code}}, {{order.city}}, {{order.address}}</li>
+  </ul>
+
+  {% if order.payment == 'Przelew bankowy' %}
+    <h5>Wybrałeś płatność przelewem</h5>
+    <p>Prosimy o wpłatę bezpośrednio na nasze konto bankowe. Twoje zamówienie zostanie zrealizowane po zaksięgowaniu wpłaty na naszym koncie.</p>
+    <h5>Nasze dane bankowe</h5>
+    <p>Konto bankowe</p>
+    <p>Numer konta: 12 1234 1234 1234 1234 1234 1234</p>
+  {% else %}
+    <h5>Wybrałeś płatność przy odbiorze</h5>
+    <p>Zamówienie zostanie wysłane za pobraniem na twój adres.</p>
+  {%endif%}
+</div>
+
+<div class="col-6">
+<h5>Zamówienie:</h5>
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Produkt:</th>
+      <th class="text-center" scope="col">Ilość:</th>
+      <th class="text-center" scope="col">Kwota:</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in order.products.all %}
+    <tr>
+      <td>{{ product.product.title }} - {{ product.product.short_description }}</td>
+      <td class="text-center">{{ product.quantity }}</td>
+      <td class="text-center">{{ product.get_total_item_price }} zł</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td>Koszt wysyłki</td>
+      <td class="text-center"></td>
+      <td class="text-center">15 zł</td>
+    </tr>
+    <tr>
+      <td><strong>Suma:</strong></td>
+      <td></td>
+      <td class="text-center"><strong>{{ order.get_total_price }} zł</strong></td>
+    </tr>
+    <tr>
+      <td>{{ order.payment }}</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+
+<div class="offset-md-6 col-6">
+<form method='POST'>{% csrf_token %}
+<label>{{form.shop_rules}} Przeczytałem/am i akceptuję regulamin *</label>
+<button type="submit" class="btn btn-md btn-block btn-info mt-2 pt-2 pb-2">Potwierdź zamówienie</button>
+</form>
+</div>
+
+{% endblock %}

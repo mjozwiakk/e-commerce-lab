@@ -61,15 +61,6 @@ body {
 
 input {
     width: 100%;
-  }
-
-#id_country {
-    color: #565656;
-    font: 400 1rem system-ui;
-    padding: 2px 1px;
-    width: 100%;
-    background-color: white;
-    border-color: #CCC;
 }
 
 #id_payment {
@@ -82,4 +73,12 @@ input {
 
 #id_payment input {
     width: 4%;
+}
+
+#id_shop_rules{
+    width: 4%;
+}
+
+form label {
+    width:100%;
 }

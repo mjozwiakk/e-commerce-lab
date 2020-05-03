@@ -53,6 +53,15 @@ class Order(models.Model):
     ordered = models.BooleanField(default=False)
     products = models.ManyToManyField(OrderProduct)
 
+
+    first_name = models.CharField(default='Imię', max_length=50)
+    last_name = models.CharField(default='Nazwisko', max_length=50)
+    company = models.CharField(default='', max_length=100)
+    city = models.CharField(default='Miasto', max_length=100)
+    zip_code = models.CharField(default='Kod pocztowy', max_length=50)
+    address = models.CharField(default='Adres', max_length=50)
+    payment = models.CharField(default='Płatność', max_length=50)
+
     def __str__(self):
         return self.user.username
 
